@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Task</title>
+    <style>
+        .code-block {
+            background-color: #f3f3f3;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="zvit">
+        <h1> Крамар Микита ІО-1613 Лабораторна робота 5.1</h1>
+        <h2>Тема:   ОБ'ЄКТ. МЕТОДИ ОБ'ЄКТА. МАСИВ ОБ'ЄКТІВ. ДЕСТРУКТУРИЗАЦІЯ ОБ'ЄКТІВ. CALLBACK. СТРІЛОЧНІ ФУНКЦІЇ. СТРІЛОЧНІ ФУНКЦІЇ ЯК КОЛБЕКИ​.    
+            </h2>
+
+        <h2>Мета: придбати практичні навички роботи з об'єктами. Методи об'єкта.. Callback. Стрілочні функції. Стрілочні функції як колбеки​.
+            .  Реалізація програм засовами мови JAVASCRIPT            
+            </h2>
+    </div>
+
+    <section class="2">
+        <h1>lab2</h1>
+        <div id="2"></div>
+        <script src="js/2.js"></script>
+    </section>
+
+    <section class="4">
+        <br><hr><br>
+        <h1>lab4</h1>
+        <div id="4"></div>
+        <script src="js/4.js"></script>
+    </section>
+
+    <section class="6">
+        <br><hr><br>
+        <h1>lab6</h1>
+        <div id="6"></div>
+        <script src="js/6.js"></script>
+    </section>
+
+    <section class="8">
+        <br><hr><br>
+        <h1>lab8</h1>
+        <div id="8"></div>
+        <script src="js/8.js"></script>
+    </section>
+
+    <section class="10">
+        <br><hr><br>
+        <h1>lab10</h1>
+        <div id="10"></div>
+        <script src="js/10.js"></script>
+    </section>
+
+    <div class="code-block">
+        <h1>Завдання 2</h1>
+        <pre><code>
+            const products = [
+    { id: 1, name: 'телефон', price: 8100 },
+    { id: 2, name: 'Монітор', price: 3200 },
+    { id: 3, name: 'Кресло', price: 5300 },
+];
+
+function getProductDetails(productId, successCallback, errorCallback) {
+    const product = products.find(p => p.id === productId);
+    
+    if (product) {
+        successCallback(product);
+    } else {
+        errorCallback('Product not found');
+    }
+}
+
+function onSuccess(product) {
+    const outputDiv = document.getElementById('2');
+    outputDiv.innerHTML = `<p>Product Name: ${product.name}</p><p>Price: $${product.price}</p>`;
+}
+
+function onError(errorMessage) {
+    const outputDiv = document.getElementById('2');
+    outputDiv.innerHTML = `<p style="color: red;">Error: ${errorMessage}</p>`;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    getProductDetails(1, onSuccess, onError);
+});
+
+        </code></pre>
+    </div>
+    <div class="code-block">
+        <h1>Завдання 4</h1>
+        <pre><code>
+            const concerts = {
+                Київ: new Date("2020-04-01"),
+                Умань: new Date("2025-07-02"),
+                Вінниця: new Date("2020-04-21"),
+                Одеса: new Date("2025-03-15"),
+                Хмельницький: new Date("2020-04-18"),
+                Харків: new Date("2025-07-10"),
+            };
+            
+            const now = new Date();
+            
+            const upcomingCities = Object.keys(concerts)
+                .filter(city => concerts[city] > now)
+                .sort((a, b) => concerts[a] - concerts[b]); 
+            console.log(upcomingCities);
+            
+            document.addEventListener("DOMContentLoaded", () => {
+                const outputDiv = document.getElementById('4');
+                outputDiv.innerHTML = `<p>Upcoming concerts: ${upcomingCities.join(', ')}</p>`;
+            });
+        </code></pre>
+    </div>
+    <div class="code-block">
+        <h1>Завдання 6</h1>
+        <pre><code>
+            const medicines = [
+    { name: "Noshpa", price: 170 },
+    { name: "Analgin", price: 55 },
+    { name: "Quanil", price: 310 },
+    { name: "Alphacholine", price: 390 },
+];
+
+const applyDiscountAndAddId = (medicines) => {
+    return medicines.map((medicine, index) => {
+        const id = index + 1;
+
+        const discountedPrice = medicine.price > 300 ? medicine.price * 0.7 : medicine.price;
+
+        return { id, name: medicine.name, price: discountedPrice.toFixed(2) };
+    });
+};
+
+const discountedMedicines = applyDiscountAndAddId(medicines);
+
+console.log(discountedMedicines);
+
+document.addEventListener("DOMContentLoaded", () => {
+    const outputDiv = document.getElementById('6');
+    discountedMedicines.forEach(medicine => {
+        outputDiv.innerHTML += `<p>ID: ${medicine.id}, Name: ${medicine.name}, Price: ${medicine.price} грн</p>`;
+    });
+});
+        </code></pre>
+    </div>
+    <div class="code-block">
+        <h1>Завдання 8</h1>
+        <pre><code>
+            class Storage {
+                constructor(items) {
+                    this.items = items;
+                }
+            
+                getItems() {
+                    return this.items;
+                }
+            
+                addItem(item) {
+                    this.items.push(item);
+                }
+            
+                removeItem(item) {
+                    const index = this.items.indexOf(item);
+                    if (index !== -1) {
+                        this.items.splice(index, 1);
+                    }
+                }
+            }
+            
+            const arr = ["apple", "banana", "mango"];
+            
+            const storage = new Storage(arr);
+            
+            storage.addItem("orange");
+            storage.removeItem("banana");
+            
+            const finalItems = storage.getItems();
+            
+            console.log(finalItems);
+            
+            document.addEventListener("DOMContentLoaded", () => {
+                const outputDiv = document.getElementById('8');
+                outputDiv.innerHTML = `<p>Final items in storage: ${finalItems.join(', ')}</p>`;
+            });
+        </code></pre>
+    </div>
+    <div class="code-block">
+        <h1>Завдання 10</h1>
+        <pre><code>
+            function checkBrackets(str) {
+                const stack = [];
+                const brackets = {
+                    '(': ')',
+                    '{': '}',
+                    '[': ']'
+                };
+            
+                for (let char of str) {
+                    if (brackets[char]) {
+                        stack.push(brackets[char]);
+                    } else if (Object.values(brackets).includes(char)) {
+                        if (stack.pop() !== char) {
+                            return false;
+                        }
+                    }
+                }
+            
+                return stack.length === 0;
+            }
+            
+            const examples = [
+                'function someFn() { return [1, 2, 3]; }', // правильный код
+                'function anotherFn() { return [1, 2, 3; }', // неправильный код
+                'if (a > b) { console.log(a); } else { console.log(b); }', // правильный код
+                'for (let i = 0; i < 10; i++) { console.log(i); }', // правильный код
+                'while (true { console.log("loop"); }' // неправильный код
+            ];
+            
+            examples.forEach(example => {
+                console.log(`${example}: ${checkBrackets(example)}`);
+            });
+            
+            document.addEventListener("DOMContentLoaded", () => {
+                const outputDiv = document.getElementById('10');
+                examples.forEach(example => {
+                    const result = checkBrackets(example);
+                    outputDiv.innerHTML += `<p>${example}: ${result}</p>`;
+                });
+            });
+        </code></pre>
+    </div>
+</body>
+</html>
